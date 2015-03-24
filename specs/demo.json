@@ -1,12 +1,12 @@
 {
-  "/user/" : "./specs/files/1.json",
-  "/events/updates/" : [
+  "/user" : "./specs/files/1.json",
+  "/events/updates" : [
     "./specs/files/2.json",
     "./specs/files/3.json",
     "./specs/files/4.json",
     "./specs/files/5.json"
   ],
-  "/orders/" : {
+  "/orders" : {
     "path": "./specs/files/6.json",
     "code": 500
   }
