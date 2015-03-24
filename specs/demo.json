@@ -1,0 +1,13 @@
+{
+  "/user" : "./files/1.json",
+  "/events/updates" : [
+    "./files/2.json",
+    "./files/3.json",
+    "./files/4.json",
+    "./files/5.json"
+  ],
+  "/orders/" : {
+    "path": "./files/6.json",
+    "code": 500
+  }
+}
