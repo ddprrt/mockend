@@ -4,7 +4,7 @@
   "description": "Mock backend calls",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "node specs/test.js"
   },
   "keywords": [
     "mock",
@@ -16,5 +16,10 @@
   "dependencies": {
     "connect": "^3.3.5",
     "serve-static": "^1.9.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.1",
+    "should": "^5.2.0",
+    "supertest": "^0.15.0"
   }
 }
