@@ -12,10 +12,18 @@ var contents = function(obj) {
     }
 }
 
+var callbackAvailable = function(cbNum) {
+    return function(res) {
+        return res.text.indexOf('jq' + cbNum) < 0;
+    }
+}
+
 var json = require('./demo.json');
 
 var app = connect();
 app.use(mw(json));
+
+/** check standard string call */
 
 supertest(app)
     .get('/user')
@@ -23,7 +31,7 @@ supertest(app)
     .expect(contents(require('./files/1.json')))
     .end(end);
 
-/** check updates */
+/** check array */
 
 [2,3,4,5,2,3,4,5].forEach(function(x) {
     supertest(app)
@@ -33,8 +41,20 @@ supertest(app)
         .end(end);  
 });
 
+/** check object */
+
 supertest(app)
     .get('/orders')
     .expect(contents(require('./files/6.json')))
     .expect(500)
+    .end(end);
+
+/** check jsonp */
+
+var rand = parseInt(Math.random() * 334500);
+
+supertest(app)
+    .get('/user?callback=jq' + rand)
+    .expect(200)
+    .expect(callbackAvailable(rand))
     .end(end);
