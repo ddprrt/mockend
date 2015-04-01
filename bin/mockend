@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+var liftoff     = require('liftoff'),
+    middleware  = require('..'),
+    argv        = require('minimist')(process.argv.slice(2)),
+    connect     = require('connect');
+
+var mockendFile = argv.f || argv.file || 'mockend';
+
+console.log(mockendFile);
+
+var mockend = new liftoff({
+    name: 'mockend',
+    processTitle: 'mockend',
+    moduleName: mockendFile,
+    configName: 'mockend',
+    extensions: {
+        '.js': false,
+        '.json': null
+    }
+});
+
+var invoke = function (env) {
+    var options = {},
+        app = connect();
+
+    console.log(env);
+
+    options.file = require(env.configPath);
+    options.port = argv.port || argv.port || 3003;
+
+    console.log(options.file);
+    app.use(middleware(options.file));
+    app.listen(options.port);
+};
+
+mockend.launch({
+    cwd: argv.cwd,
+    configPath: argv.myappfile,
+    require: argv.require,
+    completion: argv.completion
+}, invoke);
