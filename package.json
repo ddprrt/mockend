@@ -1,7 +1,10 @@
 {
   "name": "mockend",
-  "version": "0.0.1",
+  "version": "0.3.0",
   "description": "Mock backend calls",
+  "bin": { 
+    "mockend": "./bin/mockend" 
+  },
   "main": "index.js",
   "scripts": {
     "test": "node specs/test.js"
