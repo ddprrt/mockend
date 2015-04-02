@@ -7,8 +7,6 @@ var liftoff     = require('liftoff'),
 
 var mockendFile = argv.f || argv.file || 'mockend';
 
-console.log(mockendFile);
-
 var mockend = new liftoff({
     name: 'mockend',
     processTitle: 'mockend',
@@ -23,15 +21,16 @@ var mockend = new liftoff({
 var invoke = function (env) {
     var options = {},
         app = connect();
-
-    console.log(env);
-
-    options.file = require(env.configPath);
-    options.port = argv.port || argv.port || 3003;
-
-    console.log(options.file);
+    try {
+        options.file = require(env.configPath);   
+    } catch(e) {
+        console.error('Cannot read ' + mockendFile + '.json');
+        process.exit(3);
+    }
+    options.port = argv.p || argv.port || 3003;
     app.use(middleware(options.file));
     app.listen(options.port);
+    console.log('Listening on port ' + options.port);
 };
 
 mockend.launch({
